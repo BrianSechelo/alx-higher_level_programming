@@ -5,7 +5,7 @@
 void print_python_list_info(PyObject *p)
 	long int size = PyList_size(p);
 	int i;
-	PyListObject *obj = (pyListObject *)p;
+	PyListObject *obj = (PyListObject *)p;
 
 	printf("[*] size of the python list = %li\n", size);
 	printf("[*] ALlocate = %li\n", obj->allocated)
