@@ -1,81 +1,39 @@
 #include "lists.h"
-#include <stdio.h>
 
-void reverse(listint_t **head)
-int comparelists(listint_t *head, listint_t *middle, int len);
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
+ * is_palindrome - checks is a singly linked list is a palindrome
+ * @head: head node
  *
- * @head: pointer to pointer of the first node in the list passed
- *
- * Return: 0 if a plaindorme isnt detected and 1 if yes
+ * Return: 1 if it's a palindrome else 0
  */
+
 int is_palindrome(listint_t **head)
 {
-int len, i;
-listint_t *tmp;
-listint_t *middle;
-if (head == Null || *head == Null)
-	return (1);
-tmp = **head;
-middle = *head;
+	listint_t *temp;
+	int len = 0, a = 0;
+	int x[10000];
 
-for (len = 0; tmp != Null; len++)
-       tmp = tmp->next;
-len = len / 2;
-for (i = 1; i < len; i++)
-	middle = middle->next;
-if (len % 2 != 0 && len != 1)
-{
-	middle = middle->next;
-	len = len - 1;
-}
-reverse(&middle);
-i = compare_lists(*head, middle, len);
-return (i);
-}
-/**
- * compare_lists - compare two lists
- * @head: pointer to the head node
- * @middle: pointer to the middle node
- * @len: length of the list
- * Return:if the same i, if not 0
- */
-int compare_lists(listint_t *head, listint_t *middle, int len)
-{
-int i;
-if (head == NULL || middle == NULL)
+	temp = *head;
+	if ((*head) == NULL)
+		return (1);
+	while (temp != NULL)
+	{
+		len++;
+		temp = temp->next;
+	}
+	if (len == 1)
+		return (1);
+	temp = *head;
+	while (temp != NULL)
+	{
+		x[a] = temp->n;
+		temp = temp->next;
+		a++;
+	}
+	for (a = 0; a <= len / 2; a++)
+	{
+		if (x[a] != x[len - a - 1])
+			return (0);
+	}
 	return (1);
-for (i = 0; i < len; i++)
-{
-	if (head->n != middle->n)
-		return (0);
-	head = head->next;
-	middle = middle->next;
-}
-return (1);
-}
-/**
- * reverse - reverse a list
- * @head: pointer to the head to reverse
- */
-void reverse(listint_t **head)
-{
-listint_t *current;
-listint_t *next;
-listint_t *prev;
-
-if (head == NULL || *head == NULL)
-	return;
-prev = NULL;
-current = *head;
-while (current != NULL)
-{
-next = current->next;
-current->next = prev;
-prev = current;
-current = next;
-}
-*head = prev;
-}
 }
