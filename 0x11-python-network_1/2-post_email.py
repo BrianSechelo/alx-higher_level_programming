@@ -1,18 +1,21 @@
 #!/usr/bin/python3
-""" This script displays the value of the X-Request-Id variable"""
+"""This script displays the body of the response of a POST request"""
 
 
 from urllib.request import Request, urlopen
 from urllib.error import URLError
+from urllib.parse import urlencode
 from sys import argv
 
 
-def response_header_value(url: str):
+def post_email(url: str, email: str):
     try:
-        req = Request(url)
+        data = urlencode({"email": email})
+        email_encode = data.encode("utf-8")
+        req = Request(url, email_encode)
         with urlopen(req) as response:
             body = response.read()
-        print(response.info().get("X-Request-Id"))
+        print(body.decode("utf-8"))
     except URLError as e:
         if hasattr(e, 'reason'):
             print(e.reason)
@@ -21,4 +24,4 @@ def response_header_value(url: str):
 
 
 if __name__ == "__main__":
-    response_header_value(argv[1])
+    post_email(argv[1], argv[2])
