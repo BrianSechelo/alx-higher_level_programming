@@ -2,7 +2,7 @@
 """ Script fetches https://alx-intranet.hbtn.io/status"""
 
 from urllib.request import Request, urlopen
-from urllib.error import URLERROR
+from urllib.error import URLError
 
 def fetch_body():
     try:
